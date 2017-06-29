@@ -1,0 +1,33 @@
+@import "../../styles/tools/tools.typography";
+
+.SearchDropdown
+{
+  background-color: #FFFFFF;
+  padding:          20px 26px;
+  margin-left:      -50px;
+  position:         relative;
+  z-index:          100;
+  max-height:       400px;
+  overflow-y:       auto;
+}
+
+.SearchDropdown__section
+{
+  margin-top: 30px;
+
+  &:first-of-type
+  {
+    margin-top: 0;
+  }
+
+}
+
+.SearchDropdown__section__title
+{
+  @include smallFont;
+}
+
+.SearchDropdown__section__results
+{
+  margin-top: 10px;
+}

@@ -1,0 +1,40 @@
+@import "../../styles/tools/tools.typography";
+
+.SearchResult
+{
+  display:    flex;
+  margin-top: 10px;
+
+  &:first-of-type
+  {
+    margin-top: 0;
+  }
+
+}
+
+.SearchResult__image
+{
+  background-color: #d0d0d0;
+  width:            36px;
+  height:           36px;
+  margin-right:     10px;
+}
+
+.SearchResult__info
+{
+  @include smallFont;
+  display:     flex;
+  align-items: center;
+  flex:        1;
+}
+
+.SearchResult__info__title
+{
+  font-weight: 500;
+}
+
+.SearchResult__info__subtitle
+{
+
+}
+

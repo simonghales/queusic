@@ -1,0 +1,17 @@
+.TilesSection
+{
+  padding: 40px 20px;
+}
+
+.TilesSection__row
+{
+  display:         flex;
+  justify-content: space-between;
+  margin-top:      30px;
+
+  &:first-of-type
+  {
+    margin-top: 0;
+  }
+
+}
