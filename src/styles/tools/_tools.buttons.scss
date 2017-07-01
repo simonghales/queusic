@@ -1,0 +1,35 @@
+@mixin resetButton
+{
+  cursor:     pointer;
+  font:       inherit;
+  padding:    0;
+  border:     0;
+  background: none;
+
+  &:focus
+  {
+    outline: none;
+  }
+
+}
+
+@mixin spotifyButton
+{
+  @include resetButton;
+  background-color: #FFFFFF;
+  box-shadow:       0 1px 15px rgba(0, 0, 0, 0.1);
+  color:            #303030;
+  display:          inline-block;
+  font-weight:      500;
+  padding:          18px 40px;
+  text-transform:   uppercase;
+  letter-spacing:   1px;
+  border-radius:    40px;
+  transition:       transform 250ms ease;
+
+  &:active
+  {
+    transform: translateY(2px);
+  }
+
+}

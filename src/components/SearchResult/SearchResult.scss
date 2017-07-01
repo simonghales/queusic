@@ -1,23 +1,28 @@
+@import "../../styles/tools/tools.image";
 @import "../../styles/tools/tools.typography";
 
 .SearchResult
 {
-  display:    flex;
-  margin-top: 10px;
-
-  &:first-of-type
-  {
-    margin-top: 0;
-  }
-
+  cursor:  pointer;
+  display: flex;
+  padding: 5px 0;
 }
 
 .SearchResult__image
 {
-  background-color: #d0d0d0;
+  @include backgroundImage;
+  background-color: #F0F0F0;
   width:            36px;
   height:           36px;
   margin-right:     10px;
+  transition:       transform 300ms ease, box-shadow 300ms ease;
+
+  .SearchResult:hover &
+  {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    transform:  scale(1.1);
+  }
+
 }
 
 .SearchResult__info

@@ -1,0 +1,71 @@
+@mixin searchDropdownTransition
+{
+
+  &.searchDropdownTransition-enter
+  {
+    //opacity: 0.75;
+    transform: translateY(-100%);
+
+    &.searchDropdownTransition-enter-active
+    {
+      //opacity: 1;
+      transform: translateY(0);
+      transition: opacity 250ms ease-in, transform 250ms ease-in;
+    }
+
+  }
+
+  &.searchDropdownTransition-leave {
+    //opacity: 1;
+    transform: translateY(0);
+
+    &.searchDropdownTransition-leave-active
+    {
+      //opacity: 0.75;
+      transform: translateY(-100%);
+      transition: opacity 250ms ease-in, transform 250ms ease-in;
+    }
+
+  }
+
+}
+
+@mixin searchDropdownTransitionEnter
+{
+
+  .searchDropdownTransition-enter &
+  {
+    @content;
+  }
+
+}
+
+@mixin searchDropdownTransitionEnterActive
+{
+
+  .searchDropdownTransition-enter-active &
+  {
+    @content;
+  }
+
+}
+
+@mixin searchDropdownTransitionLeave
+{
+
+  .searchDropdownTransition-leave &
+  {
+    @content;
+  }
+
+}
+
+@mixin searchDropdownTransitionLeaveActive
+{
+
+  .searchDropdownTransition-leave-active &
+  {
+    @content;
+  }
+
+}

@@ -6,6 +6,11 @@ export interface ArtistData {
   name: string
 }
 
+export interface PlaylistData {
+  id: string,
+  name: string
+}
+
 export interface TrackData {
   artists: [ArtistData],
   id: string,
@@ -82,11 +87,11 @@ export function handleSetSelectedTrack(state, {trackId}) {
   }
 }
 
-export const ACTION_HANDLERS = {
+const ACTION_HANDLERS = {
   [SET_SELECTED_TRACK]: handleSetSelectedTrack,
 };
 
-export function reducer(state: AppState = getInitialState(), action) {
+export function appReducer(state: AppState = getInitialState(), action) {
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action.payload) : state;
 }

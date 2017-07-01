@@ -43,15 +43,14 @@ class TilesSection extends React.Component {
 
   renderTiles() {
     const {selectedTrack, tracks, setSelectedTrack} = this.props;
-    const MAX_TILES = 4;
-    let rows = [];
+    const MAX_TILES = 7;
+    let rows = [[]];
     tracks.forEach((track, index) => {
-      const rowIndex = index % MAX_TILES;
-      const selected = selectedTrack.id === track.id;
-      if (rows.length <= rowIndex) {
+      if (rows[rows.length - 1].length >= MAX_TILES) {
         rows.push([]);
       }
-      rows[rowIndex].push(
+      const selected = selectedTrack.id === track.id;
+      rows[rows.length - 1].push(
         <Tile track={track}
               key={index}
               image={getImage(index)}
@@ -69,8 +68,6 @@ class TilesSection extends React.Component {
   }
 
   render() {
-    const {tracks} = this.props;
-    console.log('tracks...', tracks);
     return (
       <div className='TilesSection'>
         {this.renderTiles()}
@@ -79,10 +76,10 @@ class TilesSection extends React.Component {
   }
 }
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state) => {
   return {
-    selectedTrack: getSelectedTrackFromState(state),
-    tracks: getTracksFromState(state),
+    selectedTrack: getSelectedTrackFromState(state.app),
+    tracks: getTracksFromState(state.app),
   }
 };
 

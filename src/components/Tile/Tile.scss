@@ -12,8 +12,8 @@
 
 .Tile
 {
-  height:   calc(((100vw - (320px + 80px)) / 4) - 10px);
-  width:    calc(((100vw - (320px + 80px)) / 4) - 10px);
+  height:   calc(((100vw - 20px) / 7) - 20px);
+  width:    calc(((100vw - 20px) / 7) - 20px);
   position: relative;
 }
 

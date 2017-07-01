@@ -1,0 +1,42 @@
+@import "../../styles/tools/tools.buttons";
+@import "../../styles/tools/tools.typography";
+
+.AuthWrapper
+{
+  position:        fixed;
+  top:             0;
+  left:            0;
+  right:           0;
+  bottom:          0;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+.AuthWrapper__content
+{
+  position:   relative;
+  text-align: center;
+}
+
+.AuthWrapper__titleWrapper
+{
+  position:   absolute;
+  top:        -50px;
+  left:       0;
+  right:      0;
+  text-align: center;
+}
+
+.AuthWrapper__title
+{
+  @include mediumFont;
+  color:       #C0C0C0;
+  font-weight: 400;
+}
+
+.AuthWrapper__connect
+{
+  @include spotifyButton;
+}
+

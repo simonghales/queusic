@@ -1,3 +1,5 @@
+@import "../../styles/tools/tools.transitions";
+
 .HomeView
 {
   position: fixed;
@@ -5,18 +7,75 @@
   left:     0;
   right:    0;
   bottom:   0;
-  display:  flex;
+}
+
+.HomeView__search
+{
+  position: fixed;
+  top:      0;
+  left:     0;
+  right:    0;
+  z-index:  500;
+}
+
+.HomeView__search__input
+{
+
 }
 
 .HomeView__main
 {
-  flex:       1;
   height:     100%;
   overflow-y: auto;
+  //padding-right: 320px;
 }
 
 .HomeView__aside
 {
-  width:  320px;
+  position: fixed;
+  top:      0;
+  right:    0;
+  left:     0;
+  bottom:   0;
+}
+
+.HomeView__aside__content
+{
   height: 100%;
+  width:  400px;
+  margin: 0 auto;
+}
+
+.HomeView__aside__overlay
+{
+  position:         fixed;
+  top:              0;
+  left:             0;
+  right:            0;
+  bottom:           0;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index:          50;
+
+  @include searchDropdownTransitionEnter
+  {
+    opacity: 0;
+  }
+
+  @include searchDropdownTransitionEnterActive
+  {
+    opacity:    1;
+    transition: opacity 250ms ease;
+  }
+
+  @include searchDropdownTransitionLeave
+  {
+    opacity: 1;
+  }
+
+  @include searchDropdownTransitionLeaveActive
+  {
+    opacity:    0;
+    transition: opacity 250ms ease;
+  }
+
 }
