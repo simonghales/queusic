@@ -7,7 +7,8 @@ import {FaSearch, FaClose} from 'react-icons/lib/fa/index';
 import {hideSearchDropdown, showSearchDropdown} from '../../store/reducers/ui';
 import {spotifyHandler} from '../../spotify/api';
 import {
-  getTracksFromSearchState, setArtistResults, setPlaylistResults,
+  decrementOngoingSearches,
+  getTracksFromSearchState, incrementOngoingSearches, setArtistResults, setPlaylistResults,
   setTrackResults
 } from '../../store/reducers/search';
 import tracksNormalizer, {artistNormalizer, playlistsNormalizer} from '../../store/tracksNormalizer';
@@ -40,7 +41,6 @@ export interface SearchResults {
 
 class SearchBar extends React.Component {
   state: {
-    ongoingSearches: number,
     searchInput: string,
   };
 
@@ -49,6 +49,8 @@ class SearchBar extends React.Component {
     searchDropdownVisible: boolean,
     hideSearchDropdown(): void,
     showSearchDropdown(): void,
+    incrementOngoingSearches(): void,
+    decrementOngoingSearches(): void,
     setArtistResults(artists: [], artistResults: []): void,
     setPlaylistResults(playlists: [], playlistResults: []): void,
     setTrackResults(artists: [], tracks: [], trackResults: []): void,
@@ -57,7 +59,6 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ongoingSearches: 0,
       searchInput: ''
     };
     this.clearSearchInput = this.clearSearchInput.bind(this);
@@ -76,11 +77,9 @@ class SearchBar extends React.Component {
 
   conductSearch() {
     const {searchInput} = this.state;
-    const {setArtistResults, setPlaylistResults, setTrackResults} = this.props;
+    const {incrementOngoingSearches, decrementOngoingSearches, setArtistResults, setPlaylistResults, setTrackResults} = this.props;
     if (searchInput === '' || searchInput.length < 2) return;
-    this.setState({
-      ongoingSearches: this.state.ongoingSearches + 1
-    });
+    incrementOngoingSearches();
     spotifyHandler.spotifyApi.search(searchInput, [
       'artist',
       'track',
@@ -96,14 +95,10 @@ class SearchBar extends React.Component {
         setTrackResults(tracksData.entities.artists, tracksData.entities.tracks, tracksData.result);
         setArtistResults(artistsData.entities.artists, artistsData.result);
         setPlaylistResults(playlistsData.entities.playlists, playlistsData.result);
-        this.setState({
-          ongoingSearches: (this.state.ongoingSearches > 0) ? this.state.ongoingSearches - 1 : 0
-        });
+        decrementOngoingSearches();
       }, (error) => {
         console.warn('failed to retrieve search results', error);
-        this.setState({
-          ongoingSearches: (this.state.ongoingSearches > 0) ? this.state.ongoingSearches - 1 : 0
-        });
+        decrementOngoingSearches();
       });
   }
 
@@ -175,6 +170,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hideSearchDropdown: () => dispatch(hideSearchDropdown()),
     showSearchDropdown: () => dispatch(showSearchDropdown()),
+    incrementOngoingSearches: () => dispatch(incrementOngoingSearches()),
+    decrementOngoingSearches: () => dispatch(decrementOngoingSearches()),
     setArtistResults: (artists, artistResults) => dispatch(setArtistResults(artists, artistResults)),
     setPlaylistResults: (playlists, playlistResults) => dispatch(setPlaylistResults(playlists, playlistResults)),
     setTrackResults: (artists, tracks, trackResults) => dispatch(setTrackResults(artists, tracks, trackResults)),

@@ -6,6 +6,7 @@ import {
   AppState, getSelectedTrackFromState, getTracksFromState, setSelectedTrack,
   TrackData
 } from '../../store/reducers/app';
+import {TilePlaceholder} from '../TilePlaceholder/TilePlaceholder';
 
 const IMAGES: string[] = [
   'https://i.scdn.co/image/7158eca3b7fb8702a8eba6f7a17cd48017972f72',
@@ -58,6 +59,14 @@ class TilesSection extends React.Component {
               setSelectedTrack={setSelectedTrack}/>
       );
     });
+    let lastRow = rows[rows.length - 1];
+    if (lastRow.length < MAX_TILES) {
+      for (let i = 0, len = (MAX_TILES - lastRow.length); i < len; i++) {
+        lastRow.push(
+          <TilePlaceholder key={`placeholder-${i}`}/>
+        );
+      }
+    }
     return rows.map((row, index) => {
       return (
         <div className='TilesSection__row' key={index}>

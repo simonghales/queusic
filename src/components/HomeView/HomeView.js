@@ -6,6 +6,7 @@ import TilesSection from '../TilesSection/TilesSection';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchDropdown from '../SearchDropdown/SearchDropdown';
 import {hideSearchDropdown, showSearchDropdown} from '../../store/reducers/ui';
+import DropdownSubview from '../DropdownSubview/DropdownSubview';
 
 class HomeView extends React.Component {
   props: {
@@ -38,6 +39,7 @@ class HomeView extends React.Component {
                 <div className='HomeView__aside__overlay' onClick={hideSearchDropdown}></div>
                 <div className='HomeView__aside__content'>
                   <SearchDropdown/>
+                  <DropdownSubview/>
                 </div>
               </aside>
             ) : null

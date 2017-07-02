@@ -1,0 +1,5 @@
+@mixin TileSize
+{
+  height: calc(((100vw - 20px) / 7) - 20px);
+  width:  calc(((100vw - 20px) / 7) - 20px);
+}

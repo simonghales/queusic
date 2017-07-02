@@ -70,6 +70,7 @@ export function getSelectedTrackFromState(state: AppState): TrackData {
 }
 
 export const SET_SELECTED_TRACK = 'SET_SELECTED_TRACK';
+export const ADD_TRACKS_TO_QUEUE = 'ADD_TRACKS_TO_QUEUE';
 
 export function setSelectedTrack(trackId: string) {
   return {
@@ -87,8 +88,34 @@ export function handleSetSelectedTrack(state, {trackId}) {
   }
 }
 
+export function addTracksToQueue(tracks: TrackData[]) {
+  return {
+    type: ADD_TRACKS_TO_QUEUE,
+    payload: {
+      tracks
+    }
+  }
+}
+
+export function handleAddTracksToQueue(state, {tracks}) {
+  const denormalizedTracks = tracksNormalizer(tracks);
+  return {
+    ...state,
+    artists: {
+      ...state.artists,
+      ...denormalizedTracks.entities.artists
+    },
+    tracks: {
+      ...state.tracks,
+      ...denormalizedTracks.entities.tracks
+    },
+    results: state.results.concat(denormalizedTracks.result),
+  }
+}
+
 const ACTION_HANDLERS = {
   [SET_SELECTED_TRACK]: handleSetSelectedTrack,
+  [ADD_TRACKS_TO_QUEUE]: handleAddTracksToQueue,
 };
 
 export function appReducer(state: AppState = getInitialState(), action) {

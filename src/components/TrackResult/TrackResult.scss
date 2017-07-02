@@ -1,0 +1,12 @@
+.TrackResult
+{
+  border-bottom: 1px solid #F0F0F0;
+  cursor:        pointer;
+  padding:       10px 20px;
+
+  &:first-of-type
+  {
+    border-top: 1px solid #F0F0F0;
+  }
+
+}

@@ -5,7 +5,7 @@
 {
   background-color: #FFFFFF;
   box-shadow:       -5px 5px 30px rgba(0, 0, 0, 0.05), -1px 1px 2px rgba(0, 0, 0, 0.05);
-  padding:          90px 20px 20px 20px;
+  padding:          90px 20px;
   position:         relative;
   z-index:          100;
   overflow-y:       auto;
@@ -57,4 +57,10 @@
 {
   margin-top: 10px;
   min-height: 92px;
+}
+
+.SearchDropdown__section__results__emptyMessage
+{
+  @include smallFont;
+  padding-left: 45px;
 }

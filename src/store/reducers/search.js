@@ -17,6 +17,7 @@ export interface SearchState {
   artistResults: string[],
   playlistResults: string[],
   trackResults: string[],
+  ongoingSearches: number,
 }
 
 function getInitialState() {
@@ -27,6 +28,7 @@ function getInitialState() {
     artistResults: [],
     playlistResults: [],
     trackResults: [],
+    ongoingSearches: 0,
   }
 }
 
@@ -60,6 +62,8 @@ export function getTrackFromSearchState(state: SearchState, trackId: string): Tr
 export const SET_TRACK_RESULTS = 'SET_TRACK_RESULTS';
 export const SET_ARTIST_RESULTS = 'SET_ARTIST_RESULTS';
 export const SET_PLAYLIST_RESULTS = 'SET_PLAYLIST_RESULTS';
+export const INCREMENT_ONGOING_SEARCHES = 'INCREMENT_ONGOING_SEARCHES';
+export const DECREMENT_ONGOING_SEARCHES = 'DECREMENT_ONGOING_SEARCHES';
 
 export function setTrackResults(artists, tracks, trackResults) {
   return {
@@ -129,10 +133,38 @@ export function handleSetPlaylistResults(state, {playlists, playlistResults}) {
   }
 }
 
+export function incrementOngoingSearches() {
+  return {
+    type: INCREMENT_ONGOING_SEARCHES
+  }
+}
+
+export function handleIncrementOngoingSearches(state) {
+  return {
+    ...state,
+    ongoingSearches: state.ongoingSearches + 1
+  }
+}
+
+export function decrementOngoingSearches() {
+  return {
+    type: DECREMENT_ONGOING_SEARCHES
+  }
+}
+
+export function handleDecrementOngoingSearches(state) {
+  return {
+    ...state,
+    ongoingSearches: (state.ongoingSearches > 0) ? state.ongoingSearches - 1 : 0
+  }
+}
+
 const ACTION_HANDLERS = {
   [SET_TRACK_RESULTS]: handleSetTrackResults,
   [SET_ARTIST_RESULTS]: handleSetArtistResults,
   [SET_PLAYLIST_RESULTS]: handleSetPlaylistResults,
+  [INCREMENT_ONGOING_SEARCHES]: handleIncrementOngoingSearches,
+  [DECREMENT_ONGOING_SEARCHES]: handleDecrementOngoingSearches,
 };
 
 export function searchReducer(state: SearchState = getInitialState(), action) {

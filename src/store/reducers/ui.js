@@ -6,7 +6,7 @@ export interface UIState {
 
 const initialState: UIState = {
   authenticated: false,
-  searchDropdownVisible: false
+  searchDropdownVisible: true
 };
 
 const SET_AUTHENTICATED = 'SET_AUTHENTICATED';

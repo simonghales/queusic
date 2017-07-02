@@ -1,6 +1,29 @@
 @import "../../styles/tools/tools.image";
 @import "../../styles/tools/tools.typography";
 
+@mixin SearchResultPlaceholder
+{
+
+  .SearchResult--placeholder &
+  {
+    @content;
+  }
+
+}
+
+@mixin SearchResultPlaceholderText
+{
+  @include SearchResultPlaceholder
+  {
+    &::after
+    {
+      content:          'Searching for some cool shiz';
+      color:            transparent;
+      background-color: #F0F0F0;
+    }
+  }
+}
+
 .SearchResult
 {
   cursor:  pointer;
@@ -35,11 +58,12 @@
 
 .SearchResult__info__title
 {
+  @include SearchResultPlaceholderText;
   font-weight: 500;
 }
 
 .SearchResult__info__subtitle
 {
-
+  @include SearchResultPlaceholderText;
 }
 

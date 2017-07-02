@@ -1,0 +1,49 @@
+@import "../../styles/tools/tools.typography";
+
+.DropdownSubviewArtist
+{
+  height:         100%;
+  overflow-y:     auto;
+  padding-bottom: 90px;
+}
+
+.DropdownSubviewArtist__header
+{
+  background-color: #F0F0F0;
+  padding:          90px 20px 20px 20px;
+}
+
+.DropdownSubviewArtist__header__title
+{
+  @include mediumFont;
+}
+
+.DropdownSubviewArtist__body
+{
+  margin-top: 40px;
+}
+
+.DropdownSubviewArtist__topTracks
+{
+
+}
+
+.DropdownSubviewArtist__topTracks__title
+{
+  @include mediumFont;
+  padding: 0 20px 10px 20px;
+}
+
+.DropdownSubviewArtist__albums
+{
+  margin-top: 40px;
+}
+
+.DropdownSubviewArtist__albums__title
+{
+  padding: 0 20px;
+}
+
+.DropdownSubviewArtist__albums__list
+{
+}
