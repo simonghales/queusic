@@ -4,14 +4,14 @@ import './SearchDropdown.css';
 import classNames from 'classnames';
 import {
   getArtistsFromSearchState, getPlaylistsFromSearchState,
-  getTracksFromSearchState
+  getTracksFromSearchState, setSelectedSubviewArtist
 } from '../../store/reducers/search';
 import {addTracksToQueue, ArtistData, PlaylistData, TrackData} from '../../store/reducers/app';
 import SearchResultTrack from '../SearchResultTrack/SearchResultTrack';
 import SearchResultArtist from '../SearchResultArtist/SearchResultArtist';
 import SearchResultPlaylist from '../SearchResultPlaylist/SearchResultPlaylist';
 import SearchResult from '../SearchResult/SearchResult';
-import {hideSearchDropdown} from '../../store/reducers/ui';
+import {hideSearchDropdown, hideSearchDropdownSubview, showSearchDropdownSubview} from '../../store/reducers/ui';
 
 class SearchDropdown extends React.Component {
   props: {
@@ -21,22 +21,30 @@ class SearchDropdown extends React.Component {
     searchResultsTracks: TrackData[],
     addTracksToQueue(tracks: TrackData[]): void,
     hideSearchDropdown(): void,
+    hideSearchDropdownSubview(): void,
+    showSearchDropdownSubview(): void,
+    setSelectedSubviewArtist(artistId: string): void,
   };
 
   render() {
-    const {ongoingSearches,
+    const {
+      ongoingSearches,
       searchResultsArtists,
       searchResultsPlaylists,
       searchResultsTracks,
       addTracksToQueue,
-      hideSearchDropdown} = this.props;
+      hideSearchDropdown,
+      hideSearchDropdownSubview,
+      setSelectedSubviewArtist,
+      showSearchDropdownSubview
+    } = this.props;
     return (
       <div className={classNames([
         'SearchDropdown',
         {
           'SearchDropdown--ongoingSearches': (ongoingSearches > 0)
         }
-      ])}>
+      ])} onClick={hideSearchDropdownSubview}>
         <section className='SearchDropdown__section'>
           <h4 className='SearchDropdown__section__title'>Tracks</h4>
           <div className='SearchDropdown__section__results'>
@@ -71,13 +79,15 @@ class SearchDropdown extends React.Component {
               (ongoingSearches === 0) ? (
                 searchResultsArtists.map((artist, index) => {
                   return (
-                    <SearchResultArtist artist={artist} key={index}/>
+                    <SearchResultArtist artist={artist} key={index}
+                                        setSelectedSubviewArtist={setSelectedSubviewArtist}
+                                        showSearchDropdownSubview={showSearchDropdownSubview}/>
                   );
                 })
               ) : (
                 Array.from({length: 4}).map((track, index) => {
                   return (
-                    <SearchResult placeholder={true} key={index}/>
+                    <SearchResult placeholder={true} blankImage={true} key={index}/>
                   );
                 })
               )
@@ -102,7 +112,7 @@ class SearchDropdown extends React.Component {
               ) : (
                 Array.from({length: 4}).map((track, index) => {
                   return (
-                    <SearchResult placeholder={true} key={index}/>
+                    <SearchResult placeholder={true} blankImage={true} key={index}/>
                   );
                 })
               )
@@ -142,6 +152,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTracksToQueue: (tracks: TrackData[]) => dispatch(addTracksToQueue(tracks)),
     hideSearchDropdown: () => dispatch(hideSearchDropdown()),
+    hideSearchDropdownSubview: () => dispatch(hideSearchDropdownSubview()),
+    showSearchDropdownSubview: () => dispatch(showSearchDropdownSubview()),
+    setSelectedSubviewArtist: (artistId: string) => dispatch(setSelectedSubviewArtist(artistId)),
   }
 };
 

@@ -1,17 +1,20 @@
-
 export interface UIState {
   authenticated: boolean,
-  searchDropdownVisible: boolean
+  searchDropdownVisible: boolean,
+  searchDropdownSubviewVisible: boolean,
 }
 
 const initialState: UIState = {
   authenticated: false,
-  searchDropdownVisible: true
+  searchDropdownVisible: false,
+  searchDropdownSubviewVisible: false
 };
 
 const SET_AUTHENTICATED = 'SET_AUTHENTICATED';
 const HIDE_SEARCH_DROPDOWN = 'HIDE_SEARCH_DROPDOWN';
 const SHOW_SEARCH_DROPDOWN = 'SHOW_SEARCH_DROPDOWN';
+const HIDE_SEARCH_DROPDOWN_SUBVIEW = 'HIDE_SEARCH_DROPDOWN_SUBVIEW';
+const SHOW_SEARCH_DROPDOWN_SUBVIEW = 'SHOW_SEARCH_DROPDOWN_SUBVIEW';
 
 export function setAuthenticated() {
   return {
@@ -35,7 +38,8 @@ export function hideSearchDropdown() {
 export function handleHideSearchDropdown(state: UIState) {
   return {
     ...state,
-    searchDropdownVisible: false
+    searchDropdownVisible: false,
+    searchDropdownSubviewVisible: false
   }
 }
 
@@ -52,10 +56,38 @@ export function handleShowSearchDropdown(state: UIState) {
   }
 }
 
+export function hideSearchDropdownSubview() {
+  return {
+    type: HIDE_SEARCH_DROPDOWN_SUBVIEW
+  }
+}
+
+export function handleHideSearchDropdownSubview(state: UIState) {
+  return {
+    ...state,
+    searchDropdownSubviewVisible: false
+  }
+}
+
+export function showSearchDropdownSubview() {
+  return {
+    type: SHOW_SEARCH_DROPDOWN_SUBVIEW
+  }
+}
+
+export function handleShowSearchDropdownSubview(state: UIState) {
+  return {
+    ...state,
+    searchDropdownSubviewVisible: true
+  }
+}
+
 const ACTION_HANDLERS = {
   [SET_AUTHENTICATED]: handleSetAuthenticated,
   [HIDE_SEARCH_DROPDOWN]: handleHideSearchDropdown,
   [SHOW_SEARCH_DROPDOWN]: handleShowSearchDropdown,
+  [HIDE_SEARCH_DROPDOWN_SUBVIEW]: handleHideSearchDropdownSubview,
+  [SHOW_SEARCH_DROPDOWN_SUBVIEW]: handleShowSearchDropdownSubview,
 };
 
 export function uiReducer(state: UIState = initialState, action) {

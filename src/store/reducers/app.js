@@ -8,13 +8,26 @@ export interface ArtistData {
 
 export interface PlaylistData {
   id: string,
-  name: string
+  name: string,
+  images: [{
+    height: number,
+    url: string,
+    width: number,
+  }],
 }
 
 export interface TrackData {
   artists: [ArtistData],
   id: string,
-  name: string
+  name: string,
+  duration_ms: number,
+  track_number: number,
+  uri: string,
+  images: [{
+    height: number,
+    url: string,
+    width: number,
+  }],
 }
 
 

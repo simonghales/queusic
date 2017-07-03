@@ -1,3 +1,4 @@
+@import "../../styles/tools/tools.image";
 @import "../../styles/tools/tools.typography";
 
 .AlbumResult
@@ -7,7 +8,28 @@
 
 .AlbumResult__header
 {
+  display: flex;
   padding: 0 20px 10px 20px;
+}
+
+.AlbumResult__header__image
+{
+  @include backgroundImage;
+  width:            50px;
+  height:           50px;
+  background-color: #F0F0F0;
+  margin-right:     20px;
+}
+
+.AlbumResult__header__info
+{
+  flex: 1;
+}
+
+.AlbumResult__header__year
+{
+  @include smallFont;
+  margin: 5px 0 2px 0;
 }
 
 .AlbumResult__header__title

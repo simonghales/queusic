@@ -69,3 +69,43 @@
   }
 
 }
+
+@mixin searchDropdownSubviewTransitionEnter
+{
+
+  &.searchDropdownSubviewTransition-enter
+  {
+    @content;
+  }
+
+}
+
+@mixin searchDropdownSubviewTransitionEnterActive
+{
+
+  &.searchDropdownSubviewTransition-enter-active
+  {
+    @content;
+  }
+
+}
+
+@mixin searchDropdownSubviewTransitionLeave
+{
+
+  &.searchDropdownSubviewTransition-leave
+  {
+    @content;
+  }
+
+}
+
+@mixin searchDropdownSubviewTransitionLeaveActive
+{
+
+  &.searchDropdownSubviewTransition-leave-active
+  {
+    @content;
+  }
+
+}

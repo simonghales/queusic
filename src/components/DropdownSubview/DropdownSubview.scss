@@ -1,3 +1,5 @@
+@import "../../styles/tools/tools.transitions";
+
 .DropdownSubview
 {
   position:         fixed;
@@ -9,4 +11,42 @@
   height:           100%;
   background-color: #FFFFFF;
   box-shadow:       -5px 5px 30px rgba(0, 0, 0, 0.05), -1px 1px 2px rgba(0, 0, 0, 0.05);
+
+  @include searchDropdownSubviewTransitionEnter
+  {
+    opacity:   0;
+    transform: translateX(50%);
+  }
+
+  @include searchDropdownSubviewTransitionEnterActive
+  {
+    opacity:    1;
+    transform:  translateX(0);
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+
+  @include searchDropdownTransitionLeave
+  {
+    transform: translateX(0);
+    opacity:   1;
+  }
+  @include searchDropdownSubviewTransitionLeave
+  {
+    transform: translateX(0);
+    opacity:   1;
+  }
+
+  @include searchDropdownTransitionLeaveActive
+  {
+    transform:  translateX(50%);
+    opacity:    0;
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+  @include searchDropdownSubviewTransitionLeaveActive
+  {
+    transform:  translateX(50%);
+    opacity:    0;
+    transition: transform 250ms ease, opacity 250ms ease;
+  }
+
 }

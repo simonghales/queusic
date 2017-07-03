@@ -1,3 +1,5 @@
+@import "../../styles/tools/tools.typography";
+
 .TrackResult
 {
   border-bottom: 1px solid #F0F0F0;
@@ -9,4 +11,22 @@
     border-top: 1px solid #F0F0F0;
   }
 
+}
+
+.TrackResult__info
+{
+  @include smallFont;
+  display:   flex;
+  max-width: 600px;
+}
+
+.TrackResult__trackNumber
+{
+  min-width: 20px;
+}
+
+.TrackResult__name
+{
+  flex:   1;
+  margin: 0 10px;
 }

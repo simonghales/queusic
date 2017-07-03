@@ -10,8 +10,9 @@ export default class SearchResultPlaylist extends React.Component {
 
   render() {
     const {playlist} = this.props;
+    const image = (playlist.images && playlist.images.length >= 3) ? playlist.images[2].url : '';
     return (
-      <SearchResult title={playlist.name}/>
+      <SearchResult title={playlist.name} image={image} blankImage={true}/>
     );
   }
 }

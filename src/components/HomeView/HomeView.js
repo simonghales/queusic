@@ -5,12 +5,16 @@ import './HomeView.css';
 import TilesSection from '../TilesSection/TilesSection';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchDropdown from '../SearchDropdown/SearchDropdown';
-import {hideSearchDropdown, showSearchDropdown} from '../../store/reducers/ui';
+import {
+  hideSearchDropdown, hideSearchDropdownSubview, showSearchDropdown,
+  showSearchDropdownSubview
+} from '../../store/reducers/ui';
 import DropdownSubview from '../DropdownSubview/DropdownSubview';
 
 class HomeView extends React.Component {
   props: {
     searchDropdownVisible: boolean,
+    searchDropdownSubviewVisible: boolean,
     hideSearchDropdown(): void,
     showSearchDropdown(): void,
   };
@@ -20,7 +24,7 @@ class HomeView extends React.Component {
   }
 
   render() {
-    const {searchDropdownVisible, hideSearchDropdown} = this.props;
+    const {searchDropdownVisible, searchDropdownSubviewVisible, hideSearchDropdown} = this.props;
     return (
       <div className='HomeView'>
         <div className='HomeView__search'>
@@ -39,7 +43,16 @@ class HomeView extends React.Component {
                 <div className='HomeView__aside__overlay' onClick={hideSearchDropdown}></div>
                 <div className='HomeView__aside__content'>
                   <SearchDropdown/>
-                  <DropdownSubview/>
+                  <ReactCSSTransitionGroup
+                    transitionName='searchDropdownSubviewTransition'
+                    transitionEnterTimeout={250}
+                    transitionLeaveTimeout={250}>
+                    {
+                      searchDropdownSubviewVisible ? (
+                        <DropdownSubview/>
+                      ) : null
+                    }
+                  </ReactCSSTransitionGroup>
                 </div>
               </aside>
             ) : null
@@ -52,7 +65,8 @@ class HomeView extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    searchDropdownVisible: state.ui.searchDropdownVisible
+    searchDropdownVisible: state.ui.searchDropdownVisible,
+    searchDropdownSubviewVisible: state.ui.searchDropdownSubviewVisible,
   }
 };
 

@@ -3,6 +3,8 @@ import Cookies from 'js-cookie';
 import {SPOTIFY_CLIENT_ID} from './auth';
 import {clearUrlParams, getHashVariable} from '../utils/url';
 
+const all = require('promise-all');
+
 const COOKIE_SPOTIFY_AUTH_TOKEN = 'COOKIE_SPOTIFY_AUTH_TOKEN';
 
 class SpotifyHandler {
@@ -39,6 +41,33 @@ class SpotifyHandler {
       }
 
     });
+  }
+
+  getFullArtist(artistId: string) {
+
+    return new Promise((resolve, reject) => {
+
+      const promises = {
+        albums: this.spotifyApi.getArtistAlbums(artistId, {
+          album_type: 'album',
+          limit: 50
+        }),
+        topTracks: this.spotifyApi.getArtistTopTracks(artistId, 'AU'),
+      };
+
+      all(promises)
+        .then((values) => {
+          resolve({
+            albums: values.albums.body,
+            topTracks: values.topTracks.body,
+          });
+        }, (error) => {
+          console.warn('failed to get full artist', error);
+          reject();
+        });
+
+    });
+
   }
 
 }
