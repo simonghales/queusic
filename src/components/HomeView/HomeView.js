@@ -10,6 +10,7 @@ import {
   showSearchDropdownSubview
 } from '../../store/reducers/ui';
 import DropdownSubview from '../DropdownSubview/DropdownSubview';
+import Player from '../Player/Player';
 
 class HomeView extends React.Component {
   props: {
@@ -58,6 +59,7 @@ class HomeView extends React.Component {
             ) : null
           }
         </ReactCSSTransitionGroup>
+        <Player/>
       </div>
     );
   }

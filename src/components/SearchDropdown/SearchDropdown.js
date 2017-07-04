@@ -99,32 +99,32 @@ class SearchDropdown extends React.Component {
             }
           </div>
         </section>
-        <section className='SearchDropdown__section'>
-          <h4 className='SearchDropdown__section__title'>Playlists</h4>
-          <div className='SearchDropdown__section__results'>
-            {
-              (ongoingSearches === 0) ? (
-                searchResultsPlaylists.map((playlist, index) => {
-                  return (
-                    <SearchResultPlaylist playlist={playlist} key={index}/>
-                  );
-                })
-              ) : (
-                Array.from({length: 4}).map((track, index) => {
-                  return (
-                    <SearchResult placeholder={true} blankImage={true} key={index}/>
-                  );
-                })
-              )
-            }
+        {/*<section className='SearchDropdown__section'>*/}
+          {/*<h4 className='SearchDropdown__section__title'>Playlists</h4>*/}
+          {/*<div className='SearchDropdown__section__results'>*/}
+            {/*{*/}
+              {/*(ongoingSearches === 0) ? (*/}
+                {/*searchResultsPlaylists.map((playlist, index) => {*/}
+                  {/*return (*/}
+                    {/*<SearchResultPlaylist playlist={playlist} key={index}/>*/}
+                  {/*);*/}
+                {/*})*/}
+              {/*) : (*/}
+                {/*Array.from({length: 4}).map((track, index) => {*/}
+                  {/*return (*/}
+                    {/*<SearchResult placeholder={true} blankImage={true} key={index}/>*/}
+                  {/*);*/}
+                {/*})*/}
+              {/*)*/}
+            {/*}*/}
 
-            {
-              (ongoingSearches === 0 && searchResultsPlaylists.length === 0) ? (
-                this.renderEmptyMessage()
-              ) : null
-            }
-          </div>
-        </section>
+            {/*{*/}
+              {/*(ongoingSearches === 0 && searchResultsPlaylists.length === 0) ? (*/}
+                {/*this.renderEmptyMessage()*/}
+              {/*) : null*/}
+            {/*}*/}
+          {/*</div>*/}
+        {/*</section>*/}
       </div>
     );
   }

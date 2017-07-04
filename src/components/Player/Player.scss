@@ -1,0 +1,104 @@
+@import "../../styles/tools/tools.typography";
+
+.Player
+{
+  position:         fixed;
+  left:             0px;
+  right:            0px;
+  bottom:           0px;
+  background-color: #ffffff;
+  height:           80px;
+  box-shadow:       0 -3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.Player__progress
+{
+  height:           3px;
+  background-color: #F0F0F0;
+  position:         absolute;
+  top:              0;
+  left:             0;
+  right:            0;
+}
+
+.Player__progress__bar
+{
+  height:           100%;
+  width:            40%;
+  background-color: #ff003b;
+}
+
+.Player__main
+{
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  height:          100%;
+  padding:         0 20px;
+}
+
+.Player__controls
+{
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            1;
+}
+
+.Player__controls__nowPlaying
+{
+  @include smallFont;
+  @include truncate(250px);
+  text-align: right;
+}
+
+.Player__controls__nowPlaying__label
+{
+  display:      inline-block;
+  margin-right: 5px;
+  font-style:   italic;
+  color:        #c0c0c0;
+}
+
+.Player__controls__main
+{
+  cursor:           pointer;
+  width:            50px;
+  height:           50px;
+  border-radius:    50%;
+  margin:           0 20px;
+  background-color: #FFFFFF;
+  box-shadow:       0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.Player__controls__nextUp
+{
+  @include smallFont;
+  @include truncate(250px);
+}
+
+.Player__controls__nextUp__label
+{
+  display:      inline-block;
+  margin-right: 5px;
+  font-style:   italic;
+  color:        #c0c0c0;
+}
+
+.Player__startTime,
+.Player__endTime
+{
+  @include smallFont;
+}
+
+.Player__startTime
+{
+
+}
+
+.Player__endTime
+{
+
+}
+
+

@@ -76,10 +76,26 @@ class TilesSection extends React.Component {
     });
   }
 
+  renderTilesNoRow() {
+    const {selectedTrack, tracks, setSelectedTrack} = this.props;
+    return tracks.map((track, index) => {
+      const selected = selectedTrack.id === track.id;
+      return (
+        <Tile track={track}
+              key={index}
+              image={getImage(index)}
+              selected={selected}
+              setSelectedTrack={setSelectedTrack}/>
+      );
+    });
+  }
+
   render() {
     return (
       <div className='TilesSection'>
-        {this.renderTiles()}
+        <div className='TilesSection__row'>
+          {this.renderTilesNoRow()}
+        </div>
       </div>
     );
   }

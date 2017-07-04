@@ -38,8 +38,7 @@ export function hideSearchDropdown() {
 export function handleHideSearchDropdown(state: UIState) {
   return {
     ...state,
-    searchDropdownVisible: false,
-    searchDropdownSubviewVisible: false
+    searchDropdownVisible: false
   }
 }
 

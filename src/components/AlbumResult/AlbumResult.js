@@ -7,7 +7,8 @@ import {spotifyHandler} from '../../spotify/api';
 
 export default class AlbumResult extends React.Component {
   props: {
-    album: AlbumData
+    album: AlbumData,
+    addTracksToQueue(tracks: TrackData[]): void,
   };
 
   state: {
@@ -42,7 +43,7 @@ export default class AlbumResult extends React.Component {
   }
 
   render() {
-    const {album} = this.props;
+    const {album, addTracksToQueue} = this.props;
     const {tracks} = this.state;
 
     return (
@@ -60,7 +61,7 @@ export default class AlbumResult extends React.Component {
           {
             tracks.map((track, index) => {
               return (
-                <TrackResult index={index + 1} track={track} key={index}/>
+                <TrackResult addTracksToQueue={addTracksToQueue} index={index + 1} track={track} key={index}/>
               );
             })
           }

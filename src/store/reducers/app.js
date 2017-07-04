@@ -42,7 +42,8 @@ export interface AppState {
     name: string
   }],
   results: string[],
-  selectedTrack: string
+  selectedTrack: string,
+  selectedIndex: number,
 }
 
 // const initialState = {
@@ -59,7 +60,8 @@ function getInitialState() {
     artists: data.entities.artists,
     tracks: data.entities.tracks,
     results: data.result,
-    selectedTrack: data.result[0]
+    selectedTrack: data.result[0],
+    selectedIndex: 0,
   }
 }
 
@@ -79,7 +81,13 @@ export function getTrackFromState(state: AppState, trackId: string): TrackData {
 }
 
 export function getSelectedTrackFromState(state: AppState): TrackData {
-  return getTrackFromState(state, state.selectedTrack);
+  const selectedTrack = state.results[state.selectedIndex];
+  return getTrackFromState(state, selectedTrack);
+}
+
+export function getUpNextTrackFromState(state: AppState): TrackData {
+  const track = state.results[state.selectedIndex + 1];
+  return getTrackFromState(state, track);
 }
 
 export const SET_SELECTED_TRACK = 'SET_SELECTED_TRACK';

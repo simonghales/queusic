@@ -71,7 +71,7 @@ export function getFullArtistFromSearchState(state: SearchState) {
         return state.albums[album];
       }),
       topTracks: fullArtist.topTracks.map((track) => {
-        return state.tracks[track];
+        return getTrackFromSearchState(state, track);
       })
     }
   } else {

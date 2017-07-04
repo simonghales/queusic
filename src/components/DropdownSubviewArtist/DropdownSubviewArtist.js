@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import './DropdownSubviewArtist.css';
 import AlbumResult from '../AlbumResult/AlbumResult';
 import TrackResult from '../TrackResult/TrackResult';
-import {ArtistData} from '../../store/reducers/app';
+import {addTracksToQueue, ArtistData, TrackData} from '../../store/reducers/app';
 import {spotifyHandler} from '../../spotify/api';
 import {fullArtistsNormalizer} from '../../store/tracksNormalizer';
 import {FullArtistData, setFullArtists} from '../../store/reducers/search';
@@ -12,6 +12,7 @@ class DropdownSubviewArtist extends React.Component {
   props: {
     artist: ArtistData,
     artistFull: FullArtistData,
+    addTracksToQueue(tracks: TrackData[]): void,
     setFullArtists(albums: [], tracks: [], fullArtists: []): void,
   };
 
@@ -62,7 +63,7 @@ class DropdownSubviewArtist extends React.Component {
   }
 
   render() {
-    const {artist, artistFull} = this.props;
+    const {artist, artistFull, addTracksToQueue} = this.props;
     return (
       <div className='DropdownSubviewArtist'>
         <header className='DropdownSubviewArtist__header'>
@@ -76,7 +77,7 @@ class DropdownSubviewArtist extends React.Component {
                 artistFull ? (
                   artistFull.topTracks.map((track, index) => {
                     return (
-                      <TrackResult index={index + 1} track={track} key={index}/>
+                      <TrackResult addTracksToQueue={addTracksToQueue} index={index + 1} track={track} key={index}/>
                     );
                   })
                 ) : null
@@ -90,7 +91,7 @@ class DropdownSubviewArtist extends React.Component {
                 artistFull ? (
                   artistFull.albums.map((album, index) => {
                     return (
-                      <AlbumResult album={album} key={index}/>
+                      <AlbumResult addTracksToQueue={addTracksToQueue} album={album} key={index}/>
                     );
                   })
                 ) : null
@@ -109,6 +110,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addTracksToQueue: (tracks: TrackData[]) => dispatch(addTracksToQueue(tracks)),
     setFullArtists: (albums, tracks, fullArtists) => dispatch(setFullArtists(albums, tracks, fullArtists))
   }
 };
