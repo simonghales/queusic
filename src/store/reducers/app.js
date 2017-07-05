@@ -1,5 +1,6 @@
 import tracksNormalizer from '../tracksNormalizer';
 import {TRACKS} from '../../data/tracks';
+import {getLength} from '../../utils/time';
 
 export interface ArtistData {
   id: string,
@@ -43,7 +44,7 @@ export interface AppState {
   }],
   results: string[],
   selectedTrack: string,
-  selectedIndex: number,
+  selectedTrackIndex: number,
 }
 
 // const initialState = {
@@ -61,7 +62,7 @@ function getInitialState() {
     tracks: data.entities.tracks,
     results: data.result,
     selectedTrack: data.result[0],
-    selectedIndex: 0,
+    selectedTrackIndex: 0,
   }
 }
 
@@ -80,17 +81,30 @@ export function getTrackFromState(state: AppState, trackId: string): TrackData {
   }
 }
 
+export function getTimeUntilTrackPlaying(state: AppState, index: number) {
+  let middleTracks = state.results.slice(state.selectedTrackIndex, index);
+  middleTracks = middleTracks.map((track) => {
+    return getTrackFromState(state, track);
+  });
+  const totalDuration = middleTracks.reduce((duration, track) => {
+    return duration + track.duration_ms;
+  }, 0);
+  return getLength(totalDuration);
+}
+
 export function getSelectedTrackFromState(state: AppState): TrackData {
-  const selectedTrack = state.results[state.selectedIndex];
+  const selectedTrack = state.results[state.selectedTrackIndex];
   return getTrackFromState(state, selectedTrack);
 }
 
 export function getUpNextTrackFromState(state: AppState): TrackData {
-  const track = state.results[state.selectedIndex + 1];
+  const upNextTrackIndex = (state.selectedTrackIndex < (state.results.length - 1)) ? state.selectedTrackIndex + 1 : 0;
+  const track = state.results[upNextTrackIndex];
   return getTrackFromState(state, track);
 }
 
 export const SET_SELECTED_TRACK = 'SET_SELECTED_TRACK';
+export const SET_SELECTED_TRACK_INDEX = 'SET_SELECTED_TRACK_INDEX';
 export const ADD_TRACKS_TO_QUEUE = 'ADD_TRACKS_TO_QUEUE';
 
 export function setSelectedTrack(trackId: string) {
@@ -106,6 +120,22 @@ export function handleSetSelectedTrack(state, {trackId}) {
   return {
     ...state,
     selectedTrack: trackId
+  }
+}
+
+export function setSelectedTrackIndex(index: number) {
+  return {
+    type: SET_SELECTED_TRACK_INDEX,
+    payload: {
+      index
+    }
+  }
+}
+
+export function handleSetSelectedTrackIndex(state, {index}) {
+  return {
+    ...state,
+    selectedTrackIndex: index
   }
 }
 
@@ -136,6 +166,7 @@ export function handleAddTracksToQueue(state, {tracks}) {
 
 const ACTION_HANDLERS = {
   [SET_SELECTED_TRACK]: handleSetSelectedTrack,
+  [SET_SELECTED_TRACK_INDEX]: handleSetSelectedTrackIndex,
   [ADD_TRACKS_TO_QUEUE]: handleAddTracksToQueue,
 };
 

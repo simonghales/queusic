@@ -1,3 +1,9 @@
+@mixin tinyFont
+{
+  font-size:   12px;
+  line-height: 14px;
+}
+
 @mixin smallFont
 {
   font-size:   13px;

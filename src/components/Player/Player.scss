@@ -69,6 +69,19 @@
   margin:           0 20px;
   background-color: #FFFFFF;
   box-shadow:       0 1px 5px rgba(0, 0, 0, 0.1);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+}
+
+.Player__controls__main__pauseIcon
+{
+}
+
+.Player__controls__main__playIcon
+{
+  position: relative;
+  left:     2px;
 }
 
 .Player__controls__nextUp

@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import './TilesSection.css';
 import Tile from '../Tile/Tile';
 import {
-  AppState, getSelectedTrackFromState, getTracksFromState, setSelectedTrack,
+  AppState, getSelectedTrackFromState, getTimeUntilTrackPlaying, getTracksFromState, setSelectedTrack,
+  setSelectedTrackIndex,
   TrackData
 } from '../../store/reducers/app';
 import {TilePlaceholder} from '../TilePlaceholder/TilePlaceholder';
@@ -37,55 +38,31 @@ function getImage(index) {
 
 class TilesSection extends React.Component {
   props: {
+    selectedTrackIndex: number,
     selectedTrack: TrackData,
     tracks: TrackData[],
-    setSelectedTrack(trackId: string): void,
+    getTimeUntilTrackPlaying(index: number): void,
+    setSelectedTrackIndex(index: number): void,
   };
 
-  renderTiles() {
-    const {selectedTrack, tracks, setSelectedTrack} = this.props;
-    const MAX_TILES = 7;
-    let rows = [[]];
-    tracks.forEach((track, index) => {
-      if (rows[rows.length - 1].length >= MAX_TILES) {
-        rows.push([]);
-      }
-      const selected = selectedTrack.id === track.id;
-      rows[rows.length - 1].push(
-        <Tile track={track}
-              key={index}
-              image={getImage(index)}
-              selected={selected}
-              setSelectedTrack={setSelectedTrack}/>
-      );
-    });
-    let lastRow = rows[rows.length - 1];
-    if (lastRow.length < MAX_TILES) {
-      for (let i = 0, len = (MAX_TILES - lastRow.length); i < len; i++) {
-        lastRow.push(
-          <TilePlaceholder key={`placeholder-${i}`}/>
-        );
-      }
-    }
-    return rows.map((row, index) => {
-      return (
-        <div className='TilesSection__row' key={index}>
-          {row}
-        </div>
-      );
-    });
+  constructor(props) {
+    super(props);
   }
 
   renderTilesNoRow() {
-    const {selectedTrack, tracks, setSelectedTrack} = this.props;
+    const {selectedTrackIndex, selectedTrack, tracks, getTimeUntilTrackPlaying, setSelectedTrackIndex} = this.props;
     return tracks.map((track, index) => {
       const selected = selectedTrack.id === track.id;
+      const pastTrack = index < selectedTrackIndex;
       return (
         <Tile track={track}
               key={index}
+              index={index}
               image={getImage(index)}
               selected={selected}
-              setSelectedTrack={setSelectedTrack}/>
+              pastTrack={pastTrack}
+              getTimeUntilTrackPlaying={getTimeUntilTrackPlaying}
+              setSelectedTrackIndex={setSelectedTrackIndex}/>
       );
     });
   }
@@ -103,6 +80,8 @@ class TilesSection extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    getTimeUntilTrackPlaying: (index) => getTimeUntilTrackPlaying(state.app, index),
+    selectedTrackIndex: state.app.selectedTrackIndex,
     selectedTrack: getSelectedTrackFromState(state.app),
     tracks: getTracksFromState(state.app),
   }
@@ -110,7 +89,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedTrack: (trackId: string) => dispatch(setSelectedTrack(trackId))
+    setSelectedTrackIndex: (index: number) => dispatch(setSelectedTrackIndex(index)),
   }
 };
 

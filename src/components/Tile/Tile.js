@@ -6,10 +6,12 @@ import {TrackData} from '../../store/reducers/app';
 
 export default class Tile extends React.Component {
   props: {
+    index: number,
     image: string,
     selected?: boolean,
+    pastTrack?: boolean,
     track: TrackData,
-    setSelectedTrack(trackId: string): void,
+    setSelectedTrackIndex(index: number): void,
   };
   state: {
     shadowColor: number[]
@@ -34,7 +36,7 @@ export default class Tile extends React.Component {
   }
 
   render() {
-    const {image, selected, track, setSelectedTrack} = this.props;
+    const {image, index, selected, pastTrack, track, getTimeUntilTrackPlaying, setSelectedTrackIndex} = this.props;
     const {shadowColor} = this.state;
     let backgroundStyling = {
       backgroundImage: `url(${image})`,
@@ -50,26 +52,34 @@ export default class Tile extends React.Component {
         classNames([
           'Tile',
           {
-            'Tile--selected': selected
+            'Tile--selected': selected,
+            'Tile--pastTrack': pastTrack,
           }
         ])
-      } onClick={() => {setSelectedTrack(track.id)}}>
-        <div className='Tile__background' style={backgroundStyling}></div>
-        <div className='Tile__content'>
-          <div className='Tile__info'>
-            <div className='Tile__title'>
-              <span>{track.name}</span>
-            </div>
-            <div className='Tile__subtitle'>
-              <span>
-                {
-                  track.artists.map((artist) => {
-                    return artist.name;
-                  }).join(', ')
-                }
-              </span>
+      } onClick={() => {
+        setSelectedTrackIndex(index)
+      }}>
+        <div className='Tile__main'>
+          <div className='Tile__background' style={backgroundStyling}></div>
+          <div className='Tile__content'>
+            <div className='Tile__info'>
+              <div className='Tile__title'>
+                <span>{track.name}</span>
+              </div>
+              <div className='Tile__subtitle'>
+                <span>
+                  {
+                    track.artists.map((artist) => {
+                      return artist.name;
+                    }).join(', ')
+                  }
+                </span>
+              </div>
             </div>
           </div>
+        </div>
+        <div className='Tile__bottom'>
+          <div className='Tile__playingWhen'>playing in {getTimeUntilTrackPlaying(index)}</div>
         </div>
       </div>
     );
