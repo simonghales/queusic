@@ -72,16 +72,72 @@
   display:          flex;
   align-items:      center;
   justify-content:  center;
+  position:         relative;
+  overflow:         hidden;
+
+  &::before
+  {
+    content:          '';
+    position:         absolute;
+    top:              50%;
+    left:             50%;
+    margin-left:      -5px;
+    margin-top:       -5px;
+    width:            10px;
+    height:           10px;
+    background-color: #F0F0F0;
+    border-radius:    50%;
+    transform:        scale(0);
+    opacity:          0;
+    transition:       opacity 250ms ease-out, transform 250ms ease-out;
+  }
+
+  &:active
+  {
+
+    &::before
+    {
+      opacity:   1;
+      transform: scale(3);
+    }
+
+  }
+
+  &.Player__controls__main--paused
+  {
+
+    &::before
+    {
+      background-color: #ff003b;
+      opacity:          1;
+      transform:        scale(10);
+    }
+
+  }
+
 }
 
 .Player__controls__main__pauseIcon
 {
+  position: relative;
 }
 
 .Player__controls__main__playIcon
 {
-  position: relative;
-  left:     2px;
+  position:   relative;
+  left:       2px;
+  transition: transform 250ms ease;
+
+  .Player__controls__main--paused &
+  {
+    color: #FFFFFF;
+  }
+
+  .Player__controls__main--paused:active &
+  {
+    transform: scale(1.2);
+  }
+
 }
 
 .Player__controls__nextUp

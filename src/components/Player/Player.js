@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {FaPlay, FaPause} from 'react-icons/lib/fa/index';
+import classNames from 'classnames';
 import './Player.css';
 import {getSelectedTrackFromState, getUpNextTrackFromState, TrackData} from '../../store/reducers/app';
 import {pause, play} from '../../store/reducers/ui';
@@ -46,7 +47,12 @@ class Player extends React.Component {
                 }).join(', ')}`}
               </span>
             </div>
-            <div className='Player__controls__main' onClick={this.togglePlaying}>
+            <div className={classNames([
+              'Player__controls__main',
+              {
+                'Player__controls__main--paused': !playing
+              }
+            ])} onClick={this.togglePlaying}>
               {
                 playing ? (
                   <div className='Player__controls__main__pauseIcon'>

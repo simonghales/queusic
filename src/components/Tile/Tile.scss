@@ -148,4 +148,10 @@
     transform: translateY(-25px);
   }
 
+  @include TilePastTrack
+  {
+    opacity:   0;
+    transform: translateY(-25px);
+  }
+
 }
